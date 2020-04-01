@@ -6,12 +6,12 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class InfectadosController : ControllerBase
+    public class InfectadoController : ControllerBase
     {
         Data.MongoDB _mongoDB;
         IMongoCollection<Infectado> _infectadosCollection;
 
-        public InfectadosController(Data.MongoDB mongoDB)
+        public InfectadoController(Data.MongoDB mongoDB)
         {
             _mongoDB = mongoDB;
             _infectadosCollection = _mongoDB.DB.GetCollection<Infectado>(typeof(Infectado).Name.ToLower());
