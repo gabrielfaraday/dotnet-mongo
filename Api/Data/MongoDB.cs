@@ -1,5 +1,5 @@
 using System;
-using Api.Models;
+using Api.Data.Collections;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
@@ -28,12 +28,16 @@ namespace Api.Data
 
         private void MapClasses()
         {
-            var conventionPack = new  ConventionPack {new CamelCaseElementNameConvention()};
+            var conventionPack = new ConventionPack { new CamelCaseElementNameConvention() };
             ConventionRegistry.Register("camelCase", conventionPack, t => true);
 
             if (!BsonClassMap.IsClassMapRegistered(typeof(Infectado)))
             {
-                BsonClassMap.RegisterClassMap<Infectado>();
+                BsonClassMap.RegisterClassMap<Infectado>(i =>
+                {
+                    i.AutoMap();
+                    i.SetIgnoreExtraElements(true);
+                });
             }
         }
     }

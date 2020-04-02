@@ -1,4 +1,5 @@
-﻿using Api.Models;
+﻿using Api.Data.Collections;
+using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
@@ -18,8 +19,10 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult SalvarInfectado([FromBody] Infectado infectado)
+        public ActionResult SalvarInfectado([FromBody] InfectadoDto dto)
         {
+            var infectado = new Infectado(dto.DataNascimento, dto.Sexo, dto.Latitude, dto.Longitude);
+
             _infectadosCollection.InsertOne(infectado);
             
             return StatusCode(201, "Infectado adicionado com sucesso");
